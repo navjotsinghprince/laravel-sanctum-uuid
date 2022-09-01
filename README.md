@@ -119,7 +119,7 @@ php artisan migrate:refresh --force
 ],
 
 ```
-### Step 8: Update App\Models\User model
+### Step 8: Update User Model app/Models/User.php
 ```php
 <?php
 
