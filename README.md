@@ -1,4 +1,4 @@
-## Laravel Sanctum Introduction [![My Skills](https://skills.thijs.gg/icons?i=laravel)](https://skills.thijs.gg)
+## Laravel Sanctum Introduction [![My Skills](https://skills.thijs.gg/icons?i=laravel)](https://laravel.com/)
 
 Laravel Sanctum provides a featherweight authentication system for SPAs (single page applications), mobile applications, and simple, token based APIs. Sanctum allows each user of your application to generate multiple API tokens for their account. These tokens may be granted abilities / scopes which specify which actions the tokens are allowed to perform. <br />
 First, Sanctum is a simple package you may use to issue API tokens to your users without the complication of OAuth.<br />
