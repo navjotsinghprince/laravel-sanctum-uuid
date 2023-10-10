@@ -101,7 +101,46 @@ Type answer to yes
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 ```
 
-### Step 6: Migrate Database 
+### Step 6: Update Sanctum Table
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->uuidMorphs('tokenable'); //Update column here 
+            $table->string('name');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('personal_access_tokens');
+    }
+};
+
+
+```
+
+### Step 7: Migrate Database 
 Hint: Create A Database Backup Before Use
 
 ```bash
@@ -109,7 +148,7 @@ php artisan migrate:refresh --force
 ```
 
 
-### Step 7: Configuration Sanctum's Middleware: app/Http/Kernel.php file
+### Step 8: Configuration Sanctum's Middleware: app/Http/Kernel.php file
 ```php
 
 'api' => [
@@ -119,7 +158,7 @@ php artisan migrate:refresh --force
 ],
 
 ```
-### Step 8: Update User Model app/Models/User.php
+### Step 9: Update User Model app/Models/User.php
 ```php
 <?php
 
@@ -186,7 +225,7 @@ class User extends Authenticatable
 ```
 
 
-### Step 9: Modify database/seeders/DatabaseSeeder.php
+### Step 10: Modify database/seeders/DatabaseSeeder.php
 
 ```php
 <?php
@@ -217,7 +256,7 @@ class DatabaseSeeder extends Seeder
 
 ```
 
-### Step 10: Create Controller
+### Step 11: Create Controller
 ```bash
 php artisan make:controller LoginController
 ```
@@ -259,7 +298,7 @@ class LoginController extends Controller
 
 ```
 
-### Step 11: Create Routes routes/api.php
+### Step 12: Create Routes routes/api.php
 ```php
 <?php
 
@@ -271,7 +310,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 ```
 
-### Step 12: Run
+### Step 13: Run
 ```bash
 php artisan key:generate
 php artisan db:seed
